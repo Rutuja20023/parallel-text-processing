@@ -1,6 +1,7 @@
 import time
 import os
 from multiprocessing import Pool
+import sqlite3
 
 # -----------------------------------
 # RULE CHECKER WITH SENTIMENT SCORE
@@ -89,6 +90,21 @@ if __name__ == "__main__":
     ]
 
     print("CPU Cores Available:", os.cpu_count())
+    # Connect to SQLite database
+    conn = sqlite3.connect("reviews.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS review_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    file_name TEXT,
+    category TEXT,
+    score INTEGER
+)
+""")
+    conn.commit()
+
+
 
     # -------- Sequential --------
     print("\n===== SEQUENTIAL PROCESSING =====\n")
@@ -109,6 +125,13 @@ if __name__ == "__main__":
     for file, category, score in mp_results:
         print(f"{file} → {category} | Score: {score}")
 
+        cursor.execute(
+        "INSERT INTO review_results (file_name, category, score) VALUES (?, ?, ?)",
+        (file, category, score)
+    )
+
+    conn.commit()
+
     print(f"\nMultiprocessing Time: {mp_time:.2f} seconds")
 
 
@@ -118,6 +141,9 @@ if __name__ == "__main__":
     print(f"Multiprocessing Time : {mp_time:.2f} seconds")
 
     if mp_time < seq_time:
-        print("Multiprocessing is Faster 🚀 (Parallel Confirmed)")
+        print("Multiprocessing is Faster(Parallel Confirmed)")
     else:
         print("Sequential is Faster (Small Workload Case)")
+
+    conn.close()
+
