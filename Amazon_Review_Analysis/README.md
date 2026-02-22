@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Amazon Product Review Analysis
 
 Parallel text processing system for analyzing Amazon product reviews using multiprocessing and SQLite.
@@ -165,4 +165,3 @@ The system reads multiple text files, applies a rule-based sentiment scoring sys
 
 
 
->>>>>>> 3a7040bd6ed05a9c248279dfbb94189e42a95b59
