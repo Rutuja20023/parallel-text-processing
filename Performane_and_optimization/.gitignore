@@ -1,0 +1,19 @@
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Large CSV files
+expanded_1million.csv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/

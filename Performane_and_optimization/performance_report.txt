@@ -1,0 +1,36 @@
+BEFORE OPTIMIZATION:
+
+Query 1: SELECT COUNT(*) FROM reviews WHERE category='Highly Recommended';
+Execution Time: 0.3007233142852783
+
+Query 2: SELECT AVG(score) FROM reviews;
+Execution Time:0.061000823974609375
+
+Query 3: SELECT * FROM reviews WHERE rating >= 4;
+Execution Time:0.06300020217895508
+
+========================================================================
+
+AFTER OPTIMIZATION:
+
+Query 1: SELECT COUNT(*) FROM reviews WHERE category='Highly Recommended';
+Execution Time:0.0003712177276611328
+
+Query 2: SELECT AVG(score) FROM reviews;
+Execution Time:0.04589390754699707
+
+Query 3: SELECT * FROM reviews WHERE rating >= 4;
+Execution Time:0.00024056434631347656
+
+========================================================================
+
+Performance Improvement:
+
+Query 1 Improvement: 99.88% faster (0.3007s → 0.0003s)
+Query 2 Improvement: 24.75% faster (0.0610s → 0.0459s)
+Query 3 Improvement: 99.62% faster (0.0630s → 0.0002s)
+
+Analysis:
+Indexes on category, rating, and score columns significantly reduced execution time.
+Filtered queries (Query 1 and Query 3) showed the most improvement because indexes
+allow direct access to matching rows instead of scanning all 1 million records.
